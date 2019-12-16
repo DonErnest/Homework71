@@ -334,12 +334,12 @@ function getQuotesList(checkStatus) {
         let quotesList = data;
         console.log(data.length);
         displayQuotesList(quotesList, quotesContainer);
-        // let token = getToken();
-        // if(token) {
-        //     $('.edit_delete').removeClass('d-none');
-        // } else {
-        //     $('.edit_delete').addClass('d-none');
-        // }
+        let token = getToken();
+        if(token) {
+            $('.edit_delete').removeClass('d-none');
+        } else {
+            $('.edit_delete').addClass('d-none');
+        }
     }).fail(function(response, status, message) {
         console.log('Could not access to quotes list!')
     });
