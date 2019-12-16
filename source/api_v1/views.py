@@ -1,35 +1,27 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api_v1.permissions import IsAuthenticatedOrReadAddOnly
 from api_v1.serializers import QuoteSerializer
-from webapp.models import Quote
+from webapp.models import Quote, STATUS_CHECKED
 
 
 class QuoteViewSet(viewsets.ModelViewSet):
-    queryset = Quote.objects.none()
+    queryset = Quote.objects.all()
     serializer_class = QuoteSerializer
-    permission_classes = [IsAuthenticatedOrReadAddOnly]
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return Quote.objects.all()
-        return Quote.objects.filter(status='checked')
+        return Quote.objects.filter(status=STATUS_CHECKED)
 
-    def get_object(self):
-        self.object = super(QuoteViewSet, self).get_object()
-        if self.request.user.is_authenticated:
-            return self.object
-        else:
-            print(self.object.status)
-            if self.object.status == 'checked':
-                return self.object
-            raise ValidationError('Unauthorised users cannot access new quotes!')
-
+    def get_permissions(self):
+        print(self.action)
+        if self.action not in ['update', 'partial_update', 'destroy']:
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
 
     @action(methods=['patch'], detail=True)
@@ -37,6 +29,7 @@ class QuoteViewSet(viewsets.ModelViewSet):
         quote = self.get_object()
         quote.rating += 1
         quote.save()
+        print(quote)
         return Response({'id': quote.pk, 'rating': quote.rating})
 
     @action(methods=['patch'], detail=True)

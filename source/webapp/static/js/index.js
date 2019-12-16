@@ -102,7 +102,7 @@ function displayQuotesList(list, container) {
             logInForm.addClass('d-none');
             quoteForm.addClass('d-none');
 
-            let request = makeRequest('quotes/'+list[i].id, 'get', true);
+            let request = makeRequest('quotes/'+list[i].id, 'get', false);
             request.done(function(data, status, response) {
                 console.log('Quote view');
                 quoteViewText.text(data.text);
@@ -245,10 +245,10 @@ function editQuote(id, text, email, status) {
 
 
 function setUpAuth() {
-    // quoteEditForm.on('submit', function(event) {
-    //     event.preventDefault();
-    //     editQuote(idEdit.val(), textEdit.val(), emailEdit.val(), statusEdit.val());
-    // });
+    quoteEditForm.on('submit', function(event) {
+        event.preventDefault();
+        editQuote(idEdit.val(), textEdit.val(), emailEdit.val(), statusEdit.val());
+    });
     logInForm.on('submit', function(event) {
         event.preventDefault();
         logIn(usernameInput.val(), passwordInput.val());
@@ -306,7 +306,7 @@ function checkAuth() {
 }
 
 function rateUp(id) {
-    let request = makeRequest('quotes/' + id + '/rate_up/', 'patch', false);
+    let request = makeRequest('quotes/' + id + '/rate_up', 'patch', true);
     request.done(function(data, status, response) {
         console.log('Rated up quote with id ' + id + '.');
         $('#rating_' + id).text(data.rating);
@@ -317,7 +317,7 @@ function rateUp(id) {
 }
 
 function rateDown(id) {
-    let request = makeRequest('quotes/' + id + '/rate_down/', 'patch', false);
+    let request = makeRequest('quotes/' + id + '/rate_down/', 'patch', true);
     request.done(function(data, status, response) {
         console.log('Rated down quote with id ' + id + '.');
         $('#rating_' + id).text(data.rating);

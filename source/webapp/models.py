@@ -1,7 +1,8 @@
 from django.db import models
 
 STATUS_DEFAULT = 'new'
-STATUS_CHOICES = [(STATUS_DEFAULT,'новая'),('checked','проверена')]
+STATUS_CHECKED = 'checked'
+STATUS_CHOICES = [(STATUS_DEFAULT,'новая'),(STATUS_CHECKED,'проверена')]
 
 
 class Quote(models.Model):
