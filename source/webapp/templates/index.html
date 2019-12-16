@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse container" id="menu">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#" id="home_link">На главную</a>
+                <a class="nav-item nav-link" href="#" id="create_link" data-toggle="modal" data-target="#form_modal">Добавить</a>
+            </div>
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="#" id="enter_link" data-toggle="modal" data-target="#form_modal">Вход</a>
+                <a class="nav-item nav-link d-none" href="#" id="exit_link">Выход</a>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="quotesList">
+    </div>
+    <div class="modal fade" id="form_modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="form_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="quote_view" class="d-flex flex-column d-none" >
+                        <p id="quote_text" class="align-self-start"></p>
+                        <h6 id="quote_author" class="align-self-end"></h6>
+                        <span id="quote_added" class="align-self-end"></span>
+                    </div>
+                    <form id="log_in_form" class="d-none">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="username" id="username_input" placeholder="Логин">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" id="password_input"
+                                   placeholder="Пароль">
+                        </div>
+                    </form>
+
+                    <form id="quote_form" class="d-none">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="text" id="text_input" placeholder="Текст">
+                        </div>
+                        <div class="form-group" id="inputAuthor">
+                            <input class="form-control" type="text" name="author" id="author_input" placeholder="Автор">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="email" name="email" id="email_input" placeholder="Email">
+                        </div>
+                    </form>
+                    <form id="quote_edit_form" class="d-none">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="id" id="id_edit">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="text" id="text_edit" placeholder="Текст">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="email" name="email" id="email_edit" placeholder="Email">
+                        </div>
+                        <div class="form-group" >
+                            <select class="form-control" name="status" id="status_edit">
+                                {% for item in choices %}
+                                    <option value="{{ item.0 }}" data-info ="{{ item.0 }}">{{ item.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary mr-auto" id="form_submit"></button>
+{#                    <button type="submit" class="btn btn-primary mr-auto" id="form_edit"></button>#}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'partial/quote_card.html' %}
+{% endblock %}
