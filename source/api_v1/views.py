@@ -9,7 +9,7 @@ from webapp.models import Quote, STATUS_CHECKED
 
 
 class QuoteViewSet(viewsets.ModelViewSet):
-    queryset = Quote.objects.all()
+    queryset = Quote.objects.none()
     serializer_class = QuoteSerializer
 
     def get_queryset(self):

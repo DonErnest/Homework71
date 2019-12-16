@@ -102,7 +102,7 @@ function displayQuotesList(list, container) {
             logInForm.addClass('d-none');
             quoteForm.addClass('d-none');
 
-            let request = makeRequest('quotes/'+list[i].id, 'get', false);
+            let request = makeRequest('quotes/'+list[i].id, 'get', true);
             request.done(function(data, status, response) {
                 console.log('Quote view');
                 quoteViewText.text(data.text);
