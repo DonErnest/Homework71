@@ -94,31 +94,31 @@ function displayQuotesList(list, container) {
 </div>
         `));
 
-        // $('#view_'  + list[i].id).on('click', function(event) {
-        //     event.preventDefault();
-        //
-        //     quoteBox.removeClass('d-none');
-        //     quoteEditForm.addClass('d-none');
-        //     logInForm.addClass('d-none');
-        //     quoteForm.addClass('d-none');
-        //
-        //     let request = makeRequest('quotes/'+list[i].id, 'get', true);
-        //     request.done(function(data, status, response) {
-        //         console.log('Quote view');
-        //         quoteViewText.text(data.text);
-        //         quoteViewAuthor.text(data.author);
-        //         quoteViewDate.text(new Date (Date.parse(list[i].added)))
-        //
-        //     }).fail(function(response, status, message) {
-        //         console.log('Could not upload quote');
-        //         console.log(response);
-        //     });
-        //
-        //
-        //     formTitle.text('Просмотр цитаты');
-        //     formSubmit.hide();
-        //
-        // });
+        $('#view_'  + list[i].id).on('click', function(event) {
+            event.preventDefault();
+
+            quoteBox.removeClass('d-none');
+            quoteEditForm.addClass('d-none');
+            logInForm.addClass('d-none');
+            quoteForm.addClass('d-none');
+
+            let request = makeRequest('quotes/'+list[i].id, 'get', true);
+            request.done(function(data, status, response) {
+                console.log('Quote view');
+                quoteViewText.text(data.text);
+                quoteViewAuthor.text(data.author);
+                quoteViewDate.text(new Date (Date.parse(list[i].added)))
+
+            }).fail(function(response, status, message) {
+                console.log('Could not upload quote');
+                console.log(response);
+            });
+
+
+            formTitle.text('Просмотр цитаты');
+            formSubmit.hide();
+
+        });
 
 
         $('#rate_up_' + list[i].id).on('click', function(event) {
@@ -133,39 +133,39 @@ function displayQuotesList(list, container) {
         });
 
 
-        // $('#edit_'  + list[i].id).on('click', function(event) {
-        //     event.preventDefault();
-        //
-        //     console.log();
-        //     quoteEditForm.removeClass('d-none');
-        //     quoteBox.addClass('d-none');
-        //     logInForm.addClass('d-none');
-        //     quoteForm.addClass('d-none');
-        //
-        //     formTitle.text('Редактировать цитату');
-        //     formSubmit.text('Редактировать');
-        //     formSubmit.off('click');
-        //
-        //     idEdit.val(list[i].id);
-        //     textEdit.val(list[i].text);
-        //     emailEdit.val(list[i].email);
-        //
-        //     formSubmit.on('click', function(event) {
-        //         quoteEditForm.submit();
-        // });
-        // });
-        //
-        // $('#delete_'  + list[i].id).on('click', function(event) {
-        //     event.preventDefault();
-        //     let request = makeRequest('quotes/'+list[i].id, 'delete', true);
-        //     request.done(function(data, status, response) {
-        //         console.log('Quote deleted');
-        //         getQuotesList(true);
-        //     }).fail(function(response, status, message) {
-        //         console.log('Could not delete quote');
-        //         console.log(response);
-        //     });
-        // });
+        $('#edit_'  + list[i].id).on('click', function(event) {
+            event.preventDefault();
+
+            console.log();
+            quoteEditForm.removeClass('d-none');
+            quoteBox.addClass('d-none');
+            logInForm.addClass('d-none');
+            quoteForm.addClass('d-none');
+
+            formTitle.text('Редактировать цитату');
+            formSubmit.text('Редактировать');
+            formSubmit.off('click');
+
+            idEdit.val(list[i].id);
+            textEdit.val(list[i].text);
+            emailEdit.val(list[i].email);
+
+            formSubmit.on('click', function(event) {
+                quoteEditForm.submit();
+        });
+        });
+
+        $('#delete_'  + list[i].id).on('click', function(event) {
+            event.preventDefault();
+            let request = makeRequest('quotes/'+list[i].id, 'delete', true);
+            request.done(function(data, status, response) {
+                console.log('Quote deleted');
+                getQuotesList(true);
+            }).fail(function(response, status, message) {
+                console.log('Could not delete quote');
+                console.log(response);
+            });
+        });
     }
 }
 
